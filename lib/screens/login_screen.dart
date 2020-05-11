@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:storeit/Functionality/language.dart';
+import 'package:storeit/Localization/get_translat.dart';
 import 'package:storeit/SharedWidgets/custom_logo.dart';
 import 'package:storeit/SharedWidgets/custom_textfield.dart';
 import 'package:storeit/SharedWidgets/custom_validate.dart';
 import 'package:storeit/constants.dart';
+import 'package:storeit/main.dart';
 import 'package:storeit/routers/constants_route.dart';
-import 'package:storeit/screens/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+
+class LoginScreen extends StatefulWidget {
   static String id ='LoginScreen';
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final bool autoValidate =false ;
+
   final bool enabled = true;
-
-
 
   @override
   Widget build(BuildContext context) {
+
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -25,7 +36,7 @@ class LoginScreen extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             CustomLogo(
-              title: 'Store it',
+              title: getTranslated(context, 'T_logo'),
               customHeight: 0.17,
               fontFamily: 'Pacifico',
               fontSize: 25.0,
@@ -37,7 +48,7 @@ class LoginScreen extends StatelessWidget {
             CustomField(
               enabled: enabled,
               autoValidate: autoValidate,
-              hint: 'Enter Your Email',
+              hint: getTranslated(context, 'T_email'),
               isEmail: true,
               icon: Icons.email,
               customValidate: emailValidate,
@@ -48,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             CustomField(
               enabled: enabled,
               autoValidate: autoValidate,
-              hint: 'Enter Your Password',
+              hint: getTranslated(context, 'T_password'),
               isPassword: true,
               icon: Icons.lock,
               customValidate: passwordValidate,
@@ -64,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 color: Colors.black,
                 child: Text(
-                  'Login',
+                  getTranslated(context, 'T_login'),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -83,7 +94,7 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Don\'t Have An Account ?  ',
+                   getTranslated(context, 'T_line_login'),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -94,13 +105,62 @@ class LoginScreen extends StatelessWidget {
                     Navigator.pushNamed(context, registerRoute);
                   },
                   child: Text(
-                    'Sign up',
+                    getTranslated(context, 'T_sign_up'),
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
+                ),
+              ],
+            ),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+
+                    GestureDetector(
+                      onTap: () async {
+//                        Language language;
+                          for(var lang in Language.langList()){
+                            Locale _temp = await setLocale(lang.langCode);
+                            MyApp.setLocale( context, _temp);
+                          }
+
+                      },
+                      child: Text('EN',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async{
+//                        Language language;
+                          for(var lang in Language.langList()){
+                            Locale _temp = await setLocale(lang.langCode);
+                            MyApp.setLocale( context, _temp);
+                          }
+
+                      },
+                      child: Text('العربية',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ],

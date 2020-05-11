@@ -1,3 +1,8 @@
 {
-
+  "T_login"        : "login",
+  "T_sign_up"      : "Sign up",
+  "T_email"        : "Enter Your Email",
+  "T_password"     : "Enter Your Password",
+  "T_logo"         : "Store it",
+  "T_line_login"   : "Don't Have An Account ? "
 }
